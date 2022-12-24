@@ -34,7 +34,7 @@ static const char * level_str[] = {
 		"ALL"
 };
 
-static utils_log_level_t level = NETIF_LOG_LEVEL;
+static utils_log_level_t level = UTILS_LOG_ALL;
 
 static char * level_to_color(utils_log_level_t level){
 	return color_str[level];
@@ -45,9 +45,9 @@ static char * level_to_str(utils_log_level_t level){
 }
 
 
-void utils_log_init(utils_log_level_t level){
-
-}
+void utils_log_init(utils_log_level_t _level){
+	level = _level;
+};
 
 
 void utils_log_log(utils_log_level_t _level, const char *file, int line, const char *fmt, ...){
