@@ -10,17 +10,20 @@
 typedef struct {
     size_t tail;
     size_t head;
+    size_t count;
     uint8_t buffer[BUFFER_MAX_SIZE];
+    uint16_t size;
 }utils_buffer_t;
 
 /**
  * @brief Initialize Buffer
  * 
  * @param buffer Pointer to Buffer Object
+ * @param sizeOfObject Size of Object
  * @return true if OK
  * @return false if Failed
  */
-bool utils_buffer_init(utils_buffer_t * buffer);
+bool utils_buffer_init(utils_buffer_t * buffer, uint16_t sizeOfObject);
 
 /**
  * @brief Push data to Buffer
@@ -31,7 +34,7 @@ bool utils_buffer_init(utils_buffer_t * buffer);
  * @return true if OK
  * @return false if Failed
  */
-bool utils_buffer_push(utils_buffer_t * buffer, uint8_t * data, size_t data_size);
+bool utils_buffer_push(utils_buffer_t * buffer, void * object);
 
 /**
  * @brief Pop data from Buffer
@@ -42,7 +45,7 @@ bool utils_buffer_push(utils_buffer_t * buffer, uint8_t * data, size_t data_size
  * @return true If OK
  * @return false If failed
  */
-bool utils_buffer_pop(utils_buffer_t  * buffer, uint8_t * data, size_t data_size);
+bool utils_buffer_pop(utils_buffer_t  * buffer, void *object);
 
 
 /**
@@ -61,6 +64,8 @@ bool utils_buffer_is_available(utils_buffer_t * buffer);
  * @param idx Index of Data in buffer->buffer
  * @return uint8_t* Pointer to Data[index]
  */
-uint8_t* utils_buffer_peek_idx(utils_buffer_t * buffer, size_t idx);
+bool utils_buffer_peek_idx(utils_buffer_t * buffer, size_t idx, void *object);
+
+bool utils_buffer_is_full(utils_buffer_t * buffer);
 
 #endif

@@ -59,7 +59,7 @@ void utils_log_log(utils_log_level_t _level, const char *file, int line, const c
     va_end(args);
     vsnprintf(message_buffer , UTILS_MAX_LOG_BUFFER , fmt, args);
     int size = snprintf(log_buffer , UTILS_MAX_LOG_BUFFER, "%s%d [%s] %s:%d: %s\r\n%s" ,level_to_color(_level), NETIF_GET_TIME_MS() , level_to_str(_level) , file, line, message_buffer,level_to_color(UTILS_LOG_OFF));
-    NETIF_LOG(log_buffer , size);
+    UTILS_LOG(log_buffer , size);
 }
 
 

@@ -11,8 +11,13 @@
  * @return true if OK
  * @return false if Failed
  */
-bool utils_buffer_init(utils_buffer_t * buffer){
-    memset(buffer , 0, sizeof(utils_buffer_t));
+bool utils_buffer_init(utils_buffer_t * buffer, uint16_t sizeOfObject){
+    buffer->head = 0;
+    buffer->tail = 0;
+    buffer->count = 0;
+    buffer->size = sizeOfObject;
+    memset(buffer->buffer , 0, sizeof(buffer->buffer));
+    return true;
 }
 
 /**
@@ -24,10 +29,14 @@ bool utils_buffer_init(utils_buffer_t * buffer){
  * @return true if OK
  * @return false if Failed
  */
-bool utils_buffer_push(utils_buffer_t * buffer, uint8_t * data, size_t data_size){
-    for (size_t i = 0; i < data_size; i++)
+bool utils_buffer_push(utils_buffer_t * buffer, void * object){
+	uint8_t * data_p = (uint8_t*) object;
+	if(utils_buffer_is_full(buffer)){
+		return false;
+	}
+    for (size_t i = 0; i < buffer->size; i++)
     {
-        buffer->buffer[buffer->head] = data[i];
+        buffer->buffer[buffer->head] = data_p[i];
         buffer->head = (buffer->head + 1) % BUFFER_MAX_SIZE;
     }
     return true;
@@ -42,11 +51,12 @@ bool utils_buffer_push(utils_buffer_t * buffer, uint8_t * data, size_t data_size
  * @return true If OK
  * @return false If failed
  */
-bool utils_buffer_pop(utils_buffer_t  * buffer, uint8_t * data, size_t data_size){
-    for (size_t i = 0; i < data_size; i++)
+bool utils_buffer_pop(utils_buffer_t  * buffer, void *object){
+	uint8_t * data_p = (uint8_t *)object;
+    for (size_t i = 0; i < buffer->size; i++)
     {
         /* code */
-        data[i] = buffer->buffer[buffer->tail];
+    	data_p[i] = buffer->buffer[buffer->tail];
         buffer->tail = (buffer->tail + 1) % BUFFER_MAX_SIZE;
     }
     return true;
@@ -60,11 +70,13 @@ bool utils_buffer_pop(utils_buffer_t  * buffer, uint8_t * data, size_t data_size
  * @return true if buffer available
  * @return false if buffer not available
  */
+
 bool utils_buffer_is_available(utils_buffer_t * buffer){
-    if(buffer->head != buffer->tail){
-        return true;
+    if(buffer->head >= buffer->tail){
+        return (buffer->head - buffer->tail >= buffer->size);
+    }else{
+    	return ((BUFFER_MAX_SIZE - buffer->tail) + (BUFFER_MAX_SIZE - buffer->head) >= buffer->size);
     }
-    return false;
 }
 
 
@@ -75,10 +87,24 @@ bool utils_buffer_is_available(utils_buffer_t * buffer){
  * @return true if buffer available
  * @return false if buffer not available
  */
-uint8_t* utils_buffer_peek_idx(utils_buffer_t * buffer, size_t idx){
-    if(idx <0 || idx > BUFFER_MAX_SIZE ){
-        return NULL;
+bool utils_buffer_peek_idx(utils_buffer_t * buffer, size_t idx, void *object){
+    if(idx * buffer->size < 0 || idx * buffer->size  > BUFFER_MAX_SIZE){
+        return false;
     }
-    return &buffer->buffer[idx];
+    memcpy(object, &buffer->buffer[buffer->size], buffer->size);
+}
+
+bool utils_buffer_is_full(utils_buffer_t * buffer){
+	size_t remain;
+	if(buffer->head >= buffer->tail){
+		remain = BUFFER_MAX_SIZE - (buffer->head - buffer->tail);
+	}else{
+		remain = BUFFER_MAX_SIZE - (buffer->tail - buffer->head);
+	}
+	if(remain > buffer->size){
+		return false;
+	}else{
+		return true;
+	}
 }
 
