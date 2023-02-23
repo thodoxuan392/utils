@@ -24,7 +24,6 @@ typedef enum{
 	UTILS_LOG_ALL
 }utils_log_level_t;
 
-
 #define utils_log_trace(...) utils_log_log(UTILS_LOG_TRACE, __FILE__, __LINE__, __VA_ARGS__)
 #define utils_log_debug(...) utils_log_log(UTILS_LOG_DEBUG, __FILE__, __LINE__, __VA_ARGS__)
 #define utils_log_info(...)  utils_log_log(UTILS_LOG_INFO,  __FILE__, __LINE__, __VA_ARGS__)
@@ -32,8 +31,10 @@ typedef enum{
 #define utils_log_error(...) utils_log_log(UTILS_LOG_ERROR, __FILE__, __LINE__, __VA_ARGS__)
 #define utils_log_fatal(...) utils_log_log(UTILS_LOG_FATAL, __FILE__, __LINE__, __VA_ARGS__)
 
+
 void utils_log_init(utils_log_level_t level);
 void utils_log_log(utils_log_level_t level, const char *file, int line, const char *fmt, ...);
+void utils_log_raw(const char *fmt, ...);
 
 
 #endif /* UTILS_LOGGER_H_ */
