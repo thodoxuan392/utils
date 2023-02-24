@@ -75,7 +75,7 @@ bool utils_buffer_is_available(utils_buffer_t * buffer){
     if(buffer->head >= buffer->tail){
         return (buffer->head - buffer->tail >= buffer->size);
     }else{
-    	return ((BUFFER_MAX_SIZE - buffer->tail) + (BUFFER_MAX_SIZE - buffer->head) >= buffer->size);
+    	return (BUFFER_MAX_SIZE - buffer->tail + buffer->head >= buffer->size);
     }
 }
 
@@ -101,7 +101,7 @@ bool utils_buffer_is_full(utils_buffer_t * buffer){
 	}else{
 		remain = BUFFER_MAX_SIZE - (buffer->tail - buffer->head);
 	}
-	if(remain > buffer->size){
+	if(remain >= buffer->size){
 		return false;
 	}else{
 		return true;
