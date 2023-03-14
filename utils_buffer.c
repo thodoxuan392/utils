@@ -99,12 +99,20 @@ bool utils_buffer_is_full(utils_buffer_t * buffer){
 	if(buffer->head >= buffer->tail){
 		remain = BUFFER_MAX_SIZE - (buffer->head - buffer->tail);
 	}else{
-		remain = BUFFER_MAX_SIZE - (buffer->tail - buffer->head);
+		remain = buffer->tail - buffer->head;
 	}
 	if(remain >= buffer->size){
 		return false;
 	}else{
 		return true;
 	}
+}
+
+bool utils_buffer_drop_all(utils_buffer_t * buffer){
+    buffer->head = 0;
+    buffer->tail = 0;
+    buffer->count = 0;
+    memset(buffer->buffer , 0, sizeof(buffer->buffer));
+    return true;
 }
 

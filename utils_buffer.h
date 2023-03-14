@@ -68,4 +68,6 @@ bool utils_buffer_peek_idx(utils_buffer_t * buffer, size_t idx, void *object);
 
 bool utils_buffer_is_full(utils_buffer_t * buffer);
 
+bool utils_buffer_drop_all(utils_buffer_t * buffer);
+
 #endif
