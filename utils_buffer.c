@@ -92,6 +92,7 @@ bool utils_buffer_peek_idx(utils_buffer_t * buffer, size_t idx, void *object){
         return false;
     }
     memcpy(object, &buffer->buffer[buffer->size], buffer->size);
+    return true;
 }
 
 bool utils_buffer_is_full(utils_buffer_t * buffer){

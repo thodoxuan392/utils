@@ -6,9 +6,10 @@
  */
 #include "utils_logger.h"
 
+#include "stdio.h"
 #include "stdint.h"
 #include "stdarg.h"
-#include "netif_opts.h"
+#include "string.h"
 
 static uint8_t log_buffer[UTILS_MAX_LOG_BUFFER];
 static uint8_t message_buffer[UTILS_MAX_LOG_BUFFER];
@@ -57,8 +58,8 @@ void utils_log_log(utils_log_level_t _level, const char *file, int line, const c
     }
     va_start(args, fmt);
     va_end(args);
-    vsnprintf(message_buffer , UTILS_MAX_LOG_BUFFER , fmt, args);
-    int size = snprintf(log_buffer , UTILS_MAX_LOG_BUFFER, "%s%d [%s] %s:%d: %s%s" ,level_to_color(_level), NETIF_GET_TIME_MS() , level_to_str(_level) , file, line, message_buffer,level_to_color(UTILS_LOG_OFF));
+    vsnprintf((char*)message_buffer , UTILS_MAX_LOG_BUFFER , fmt, args);
+    int size = snprintf((char*)log_buffer , UTILS_MAX_LOG_BUFFER, "%s%d [%s] %s:%d: %s%s" ,level_to_color(_level), UTILS_TIMESTAMP() , level_to_str(_level) , file, line, message_buffer,level_to_color(UTILS_LOG_OFF));
     UTILS_LOG(log_buffer , size);
 }
 

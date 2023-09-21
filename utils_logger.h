@@ -8,10 +8,9 @@
 #ifndef UTILS_LOGGER_H_
 #define UTILS_LOGGER_H_
 
-#include "app_uart.h"
-
-#define UTILS_LOG	UART3_Transmit
+#define UTILS_LOG(data, len)	(void)(data)
 #define UTILS_MAX_LOG_BUFFER 1024
+#define UTILS_TIMESTAMP() 0
 
 typedef enum{
     UTILS_LOG_OFF,
