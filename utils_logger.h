@@ -10,11 +10,10 @@
 
 #include "hal/uart.h"
 
-#include <FreeRTOS.h>
-#include <task.h>
+#include <hal/clock.h>
 
 #define UTILS_LOG(data, len) UART_send(UART_ID_0, data, len, 0xFFFF)
-#define UTILS_LOG_TIME_MS() (xTaskGetTickCount() * 1000 / configTICK_RATE_HZ)
+#define UTILS_LOG_TIME_MS() CLOCK_getTick()
 #define UTILS_MAX_LOG_BUFFER 1024
 
 typedef enum
