@@ -9,8 +9,10 @@
 #define UTILS_LOGGER_H_
 
 #include "Hal/uart.h"
+#include "main.h"
 
 #define UTILS_LOG(data, len)	(void)(UART_3,data,len)
+#define UTILS_TIME_MS()	HAL_GetTick()
 #define UTILS_MAX_LOG_BUFFER 1024
 
 typedef enum{
