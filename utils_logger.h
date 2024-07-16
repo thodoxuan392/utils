@@ -28,12 +28,29 @@ typedef enum
 	UTILS_LOG_ALL
 } utils_log_level_t;
 
-#define utils_log_trace(...) utils_log_log(UTILS_LOG_TRACE, __FILE__, __LINE__, __VA_ARGS__)
-#define utils_log_debug(...) utils_log_log(UTILS_LOG_DEBUG, __FILE__, __LINE__, __VA_ARGS__)
-#define utils_log_info(...) utils_log_log(UTILS_LOG_INFO, __FILE__, __LINE__, __VA_ARGS__)
-#define utils_log_warn(...) utils_log_log(UTILS_LOG_WARN, __FILE__, __LINE__, __VA_ARGS__)
-#define utils_log_error(...) utils_log_log(UTILS_LOG_ERROR, __FILE__, __LINE__, __VA_ARGS__)
-#define utils_log_fatal(...) utils_log_log(UTILS_LOG_FATAL, __FILE__, __LINE__, __VA_ARGS__)
+#ifndef utils_log_trace
+	#define utils_log_trace(...) utils_log_log(UTILS_LOG_TRACE, __FILE__, __LINE__, __VA_ARGS__)
+#endif
+
+#ifndef utils_log_debug
+	#define utils_log_debug(...) utils_log_log(UTILS_LOG_DEBUG, __FILE__, __LINE__, __VA_ARGS__)
+#endif
+
+#ifndef utils_log_info
+	#define utils_log_info(...) utils_log_log(UTILS_LOG_INFO, __FILE__, __LINE__, __VA_ARGS__)
+#endif
+
+#ifndef utils_log_warn
+	#define utils_log_warn(...) utils_log_log(UTILS_LOG_WARN, __FILE__, __LINE__, __VA_ARGS__)
+#endif
+
+#ifndef utils_log_error
+	#define utils_log_error(...) utils_log_log(UTILS_LOG_ERROR, __FILE__, __LINE__, __VA_ARGS__)
+#endif
+
+#ifndef utils_log_fatal
+	#define utils_log_fatal(...) utils_log_log(UTILS_LOG_FATAL, __FILE__, __LINE__, __VA_ARGS__)
+#endif
 
 void utils_log_init(utils_log_level_t level);
 void utils_log_log(utils_log_level_t level, const char* file, int line, const char* fmt, ...);
