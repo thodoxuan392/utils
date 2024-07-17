@@ -11,8 +11,9 @@
 #include "hal/uart.h"
 
 #include <hal/clock.h>
+#include <common/log.h>
 
-#define UTILS_LOG(data, len) UART_send(UART_ID_0, data, len, 0xFFFF)
+#define UTILS_LOG(data, len) USB_write(data, len, 0xFFFF)
 #define UTILS_LOG_TIME_MS() CLOCK_getTick()
 #define UTILS_MAX_LOG_BUFFER 1024
 
