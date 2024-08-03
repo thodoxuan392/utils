@@ -8,13 +8,15 @@
 #ifndef UTILS_LOGGER_H_
 #define UTILS_LOGGER_H_
 
-#include "hal/uart.h"
+#include "hal/usb.h"
 
 #include <hal/clock.h>
 #include <common/log.h>
 
-#define UTILS_LOG(data, len) USB_write(data, len, 0xFFFF)
-#define UTILS_LOG_TIME_MS() CLOCK_getTick()
+#include <FreeRTOS.h>
+
+#define UTILS_LOG(data, len) USB_write(data, len)
+#define UTILS_LOG_TIME_MS() xTaskGetTickCount()
 #define UTILS_MAX_LOG_BUFFER 1024
 
 typedef enum
