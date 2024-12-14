@@ -8,6 +8,11 @@
 #ifndef UTILS_LOGGER_H_
 #define UTILS_LOGGER_H_
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include "hal/usb.h"
 
 #include <hal/clock.h>
@@ -19,17 +24,17 @@
 #define UTILS_LOG_TIME_MS() xTaskGetTickCount()
 #define UTILS_MAX_LOG_BUFFER 1024
 
-typedef enum
-{
-	UTILS_LOG_OFF,
-	UTILS_LOG_FATAL,
-	UTILS_LOG_ERROR,
-	UTILS_LOG_WARN,
-	UTILS_LOG_INFO,
-	UTILS_LOG_DEBUG,
-	UTILS_LOG_TRACE,
-	UTILS_LOG_ALL
-} utils_log_level_t;
+	typedef enum
+	{
+		UTILS_LOG_OFF,
+		UTILS_LOG_FATAL,
+		UTILS_LOG_ERROR,
+		UTILS_LOG_WARN,
+		UTILS_LOG_INFO,
+		UTILS_LOG_DEBUG,
+		UTILS_LOG_TRACE,
+		UTILS_LOG_ALL
+	} utils_log_level_t;
 
 #ifndef utils_log_trace
 	#define utils_log_trace(...) utils_log_log(UTILS_LOG_TRACE, __FILE__, __LINE__, __VA_ARGS__)
@@ -55,8 +60,11 @@ typedef enum
 	#define utils_log_fatal(...) utils_log_log(UTILS_LOG_FATAL, __FILE__, __LINE__, __VA_ARGS__)
 #endif
 
-void utils_log_init(utils_log_level_t level);
-void utils_log_log(utils_log_level_t level, const char* file, int line, const char* fmt, ...);
-void utils_log_raw(const char* fmt, ...);
+	void utils_log_init(utils_log_level_t level);
+	void utils_log_log(utils_log_level_t level, const char* file, int line, const char* fmt, ...);
+	void utils_log_raw(const char* fmt, ...);
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* UTILS_LOGGER_H_ */
