@@ -8,10 +8,12 @@
 #ifndef UTILS_LOGGER_H_
 #define UTILS_LOGGER_H_
 
-#include "app_uart.h"
+#include "hal/uart.h"
+#include "hal/clock.h"
 
 #define UTILS_LOG	UART3_Transmit
 #define UTILS_MAX_LOG_BUFFER 1024
+#define UTILS_TIME_MS CLOCK_getMs
 
 typedef enum{
     UTILS_LOG_OFF,
