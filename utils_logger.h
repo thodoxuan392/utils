@@ -11,7 +11,7 @@
 #include "hal/uart.h"
 #include "hal/clock.h"
 
-#define UTILS_LOG	UART3_Transmit
+#define UTILS_LOG(data, dataSize)	UART_Transmit(UART_3, data, dataSize, 0xffffffff)
 #define UTILS_MAX_LOG_BUFFER 1024
 #define UTILS_TIME_MS CLOCK_getMs
 
