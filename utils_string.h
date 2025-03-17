@@ -1,4 +1,4 @@
-#ifndef UTILS_BUFFER_H
+#ifndef UTILS_STRING_H
 #define UTILS_STRING_H
 
 #include "stdint.h"
