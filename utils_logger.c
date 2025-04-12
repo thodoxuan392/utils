@@ -55,8 +55,8 @@ void utils_log_log(utils_log_level_t _level, const char *file, int line, const c
         return;
     }
     va_start(args, fmt);
-    va_end(args);
     vsnprintf(message_buffer , UTILS_MAX_LOG_BUFFER , fmt, args);
+    va_end(args);
     int size = snprintf(log_buffer , UTILS_MAX_LOG_BUFFER, "%s%d [%s] %s:%d: %s%s" ,level_to_color(_level), UTILS_TIME_MS() , level_to_str(_level) , file, line, message_buffer,level_to_color(UTILS_LOG_OFF));
     UTILS_LOG(log_buffer , size);
 }
@@ -64,8 +64,8 @@ void utils_log_log(utils_log_level_t _level, const char *file, int line, const c
 void utils_log_raw(const char *fmt, ...){
 	va_list args;
     va_start(args, fmt);
-    va_end(args);
     size_t len = vsnprintf(message_buffer , UTILS_MAX_LOG_BUFFER , fmt, args);
+    va_end(args);
     UTILS_LOG(message_buffer , len);
 }
 
