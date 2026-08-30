@@ -33,9 +33,9 @@ bool utils_string_is_receive_data(char* buffer, uint16_t buffer_len, const char*
  * @param buffer_length Buffer Len
  * @return true Interger
  */
-uint16_t utils_string_to_int(char* buffer, uint16_t buffer_length)
+uint32_t utils_string_to_int(char* buffer, uint16_t buffer_length)
 {
-	uint16_t result = 0;
+	uint32_t result = 0;
 	for(uint16_t var = 0; var < buffer_length; ++var)
 	{
 		if((buffer[var] >= '0') && (buffer[var] <= '9'))

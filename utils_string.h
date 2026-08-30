@@ -23,7 +23,7 @@ bool utils_string_is_receive_data(char* buffer, uint16_t buffer_len, const char*
  * @param buffer_length Buffer Len
  * @return true Interger
  */
-uint16_t utils_string_to_int(char* buffer, uint16_t buffer_length);
+uint32_t utils_string_to_int(char* buffer, uint16_t buffer_length);
 
 /**
  * @brief Split string into list of  token
